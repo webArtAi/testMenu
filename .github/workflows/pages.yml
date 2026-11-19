@@ -1,0 +1,47 @@
+name: Обновить меню на сайте
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    name: Проверить Excel и собрать сайт
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получить файлы проекта
+        uses: actions/checkout@v7.0.1
+      - name: Подготовить Python
+        uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Установить инструменты сборки
+        run: python -m pip install -r requirements.txt
+      - name: Проверить сборщик
+        run: python -m unittest discover -s tests -v
+      - name: Прочитать меню и подготовить фотографии
+        run: python build.py
+      - name: Подготовить GitHub Pages
+        uses: actions/configure-pages@v6.0.0
+      - name: Сохранить готовый сайт
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: site
+  deploy:
+    name: Опубликовать готовое меню
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Обновить сайт
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1
