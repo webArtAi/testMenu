@@ -104,6 +104,35 @@ def money(value):
  s=f'{value:,.2f}'.replace(',',' ').rstrip('0').rstrip('.')
  return s+' ₽'
 
+def read_framing(root):
+ """Optional display crops; source photos and full-detail views stay intact."""
+ file=Path(root)/'photo-framing.json'
+ if not file.exists():return {}
+ try:
+  if file.stat().st_size>1000000:raise ValueError('Файл больше 1 МБ.')
+  data=json.loads(file.read_text(encoding='utf-8-sig'))
+  if not isinstance(data,dict) or data.get('version')!=1 or not isinstance(data.get('photos'),dict):raise ValueError('Нужны version: 1 и объект photos.')
+  result={}
+  for name,values in data['photos'].items():
+   if not isinstance(name,str) or Path(name).name!=name or any(c in name for c in '/\\:') or name.startswith('.') or Path(name).suffix.casefold() not in {'.jpg','.jpeg','.png','.webp'}:raise ValueError('Недопустимое имя фотографии.')
+   if not isinstance(values,dict) or set(values)-{'zoom','x','y','source_sha256'}:raise ValueError(f'{name}: неизвестная настройка кадра.')
+   digest=values.get('source_sha256')
+   if digest is not None and (not isinstance(digest,str) or not re.fullmatch(r'[0-9a-f]{64}',digest)):raise ValueError(f'{name}: неверная контрольная сумма исходника.')
+   crop={'zoom':values.get('zoom',1),'x':values.get('x',0),'y':values.get('y',0)}
+   if any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) for v in crop.values()):raise ValueError(f'{name}: настройки кадра должны быть конечными числами.')
+   if not 1<=crop['zoom']<=3:raise ValueError(f'{name}: увеличение должно быть от 1 до 3.')
+   limit=(crop['zoom']-1)*50
+   if abs(crop['x'])>limit+0.00001 or abs(crop['y'])>limit+0.00001:raise ValueError(f'{name}: смещение оставляет пустой край фотографии.')
+   source=Path(root)/'photos'/name
+   if digest is not None and source.is_file() and hashlib.sha256(source.read_bytes()).hexdigest()!=digest:
+    print(f'ФОТО: {name} изменено. Использован обычный кадр 4:3; приближение для нового фото нужно подобрать отдельно.',file=sys.stderr)
+    continue
+   result[name]=crop
+  return result
+ except (OSError,UnicodeError,ValueError,TypeError) as e:raise MenuError(f'photo-framing.json: {e}') from e
+
+def css_number(value):return f'{value:.4f}'.rstrip('0').rstrip('.') or '0'
+
 def build_images(model,root,stage):
  images={};cache={};out=stage/'photos';out.mkdir()
  for dish in model['dishes']:
@@ -124,8 +153,8 @@ def build_images(model,root,stage):
   images[dish['id']]=cache[file.name]
  return images
 
-def render(model,images,root,asset_root=None):
- s=model['settings'];cats=[];sections=[];category_list=[]
+def render(model,images,root,asset_root=None,framing=None):
+ s=model['settings'];cats=[];sections=[];category_list=[];framing=framing or {}
  for c in model['categories']:
   dishes=[d for d in model['dishes'] if d['category']==c['name'] and d['visible']]
   if not dishes:continue
@@ -135,7 +164,10 @@ def render(model,images,root,asset_root=None):
   for index,d in enumerate(dishes):
    if d['id'] in images:
     src=images[d['id']];priority='fetchpriority="high"' if not sections and index<2 else 'loading="lazy"'
-    visual=f'<div class="photo-frame"><img src="./photos/{src[720]}" srcset="./photos/{src[720]} 720w, ./photos/{src[1200]} 1200w" sizes="(max-width:640px) calc(100vw - 28px), (max-width:980px) 48vw, 360px" alt="{esc(d["name"])}" {priority} decoding="async" width="720" height="600"></div>'
+    crop=framing.get(d['photo']);zoom=crop['zoom'] if crop else 1
+    frame_style=f' style="--photo-zoom:{css_number(zoom)};--photo-x:{css_number(crop["x"])}%;--photo-y:{css_number(crop["y"])}%"' if crop else ''
+    sizes=f'(max-width:640px) calc({css_number(100*zoom)}vw - {css_number(28*zoom)}px), (max-width:980px) {css_number(48*zoom)}vw, {css_number(360*zoom)}px'
+    visual=f'<div class="photo-frame"{frame_style}><img src="./photos/{src[720]}" srcset="./photos/{src[720]} 720w, ./photos/{src[1200]} 1200w" sizes="{sizes}" alt="{esc(d["name"])}" {priority} decoding="async" width="720" height="600"></div>'
    else:visual=f'<div class="placeholder" aria-hidden="true"><span class="placeholder-label">{esc(c["name"])}</span><span class="placeholder-name">{esc(d["name"])}</span><span class="placeholder-caption">Фото появится позже</span></div>'
    portions=''.join(f'<div><span>{esc(p["label"])}</span><strong>{money(p["price"])}</strong></div>' for p in d['portions'])
    long=len(d['portions'])>4
@@ -167,14 +199,14 @@ def render(model,images,root,asset_root=None):
 def build(root=ROOT,output=None,workbook=None):
  root=Path(root).resolve();dest=Path(output or root/'site').resolve();workbook=Path(workbook or root/'menu.xlsx')
  if dest==root or root.is_relative_to(dest) or dest.is_relative_to(root/'photos') or dest.is_relative_to(root/'assets'):raise MenuError('Недопустимая папка результата.')
- model=read_menu(workbook,root);dest.parent.mkdir(parents=True,exist_ok=True);stage=Path(tempfile.mkdtemp(prefix='.site-build-',dir=dest.parent));old=None
+ model=read_menu(workbook,root);framing=read_framing(root);dest.parent.mkdir(parents=True,exist_ok=True);stage=Path(tempfile.mkdtemp(prefix='.site-build-',dir=dest.parent));old=None
  try:
   images=build_images(model,root,stage);shutil.copytree(root/'assets',stage/'assets')
   bg=model['settings'].get('Фон','');mobile='background-mobile.webp' if bg=='background.webp' else bg
   background="url('./"+quote(bg,safe='')+"')" if bg else 'none'
   mobile_background="url('./"+quote(mobile,safe='')+"')" if mobile else 'none'
   with (stage/'assets/site.css').open('a') as css:css.write('\nbody{background-image:'+background+'}@media(max-width:640px){body{background-image:'+mobile_background+'}}\n')
-  (stage/'index.html').write_text(render(model,images,root,stage/'assets'),encoding='utf-8');(stage/'.nojekyll').write_text('')
+  (stage/'index.html').write_text(render(model,images,root,stage/'assets',framing),encoding='utf-8');(stage/'.nojekyll').write_text('')
   settings=model['settings'];url=settings['site_url']
   (stage/'robots.txt').write_text('User-agent: *\n'+('Disallow: /\n' if settings['draft'] else 'Allow: /\n')+(f'Sitemap: {url}/sitemap.xml\n' if url and not settings['draft'] else ''))
   if url:(stage/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>'+html.escape(url+'/')+'</loc></url></urlset>')

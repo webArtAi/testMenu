@@ -1,0 +1,659 @@
+{
+  "version": 1,
+  "photos": {
+    "omelet.webp": {
+      "source_sha256": "6ac2262ec9cb79fe9970c9c9d1ecf2b5cd83b99e8b61cf98877643c7d8caf544",
+      "zoom": 1.3,
+      "x": 0,
+      "y": 0
+    },
+    "eggs-tomato.webp": {
+      "source_sha256": "ee560f8f1e23cfe447ffc312319d4c0a24288f775c2f07966705a5d26e1a5dcd",
+      "zoom": 1.4,
+      "x": -2.11,
+      "y": -2.1
+    },
+    "eggs-sausage.webp": {
+      "source_sha256": "2e37d53565f338b2a6ee6d28d871e8da0954ff4f8a14afaf1935d14a5bb8468e",
+      "zoom": 1.45,
+      "x": -10.88,
+      "y": 1.45
+    },
+    "eggs-three.webp": {
+      "source_sha256": "b9b9f9dcc37e0e2ebd67fc1c21d9de440b0a47b1cbdf0ed253c451564dba3a7b",
+      "zoom": 1.48,
+      "x": -1.48,
+      "y": 8.14
+    },
+    "vegetable-platter.webp": {
+      "source_sha256": "7fb33d2dd0c54648b5c45aff98e2395d04e8dee31a16c2ba7601599df69bb13e",
+      "zoom": 1.6,
+      "x": 0,
+      "y": 0
+    },
+    "pickles.webp": {
+      "source_sha256": "9bd5746eb268e8bbd2e03edb734d002ce1313cc1b18c51164ce8db50aaffab00",
+      "zoom": 1.42,
+      "x": 0.0,
+      "y": 4.97
+    },
+    "eggplant-rolls.webp": {
+      "source_sha256": "845dff224feb755cc4c6f9854acca7ad5677ce55cd564ae522c296bb1cc6deb9",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "chakka.webp": {
+      "source_sha256": "9ad0af7fb464c49cec27cc13cd8a70b798c3eb8a2462c393ae44be0446add6a5",
+      "zoom": 1.4,
+      "x": -2.11,
+      "y": 4.9
+    },
+    "katyk.webp": {
+      "source_sha256": "c165f0c0db35cf2f80b051e3172ddff3d5a0505b4efdcf6933cf1a75863a39d9",
+      "zoom": 1.4,
+      "x": 0.0,
+      "y": 2.1
+    },
+    "chalop.webp": {
+      "source_sha256": "96684c8ed879e5742bcba4ae9dcdd6cb39daba8866c018bee636ad44af95c42d",
+      "zoom": 1.36,
+      "x": 1.36,
+      "y": -6.12
+    },
+    "dumplings.webp": {
+      "source_sha256": "241cd8a56348c1cce69823808f75897e3490348a38df934663f3fd08e3bb92a6",
+      "zoom": 1.61,
+      "x": 0.81,
+      "y": -3.58
+    },
+    "manty.webp": {
+      "source_sha256": "acd04c0513d30d12021fd7731872e431fd2eca6f78f250c79fc1deabc1f7ba84",
+      "zoom": 1.27,
+      "x": -2.85,
+      "y": 1.27
+    },
+    "fried-dumplings.webp": {
+      "source_sha256": "8a41cae4984d078384e10d08b952a3c9e8eab10411fddd6114e244bb41079a8e",
+      "zoom": 1.29,
+      "x": 3.62,
+      "y": 0.0
+    },
+    "fried-manty.webp": {
+      "source_sha256": "309e318e8860fd53f5a3d09fcdf0edb4406c8d32ec357cfc32ace82265f115d8",
+      "zoom": 1.26,
+      "x": -1.89,
+      "y": -2.1
+    },
+    "khachapuri-adjarian.webp": {
+      "source_sha256": "a2b1836b8c9eb674607df7ed891d250a5eef20b0545384dc8f78f493ea7c581e",
+      "zoom": 1.36,
+      "x": -0.68,
+      "y": -3.02
+    },
+    "khachapuri-megrelian.webp": {
+      "source_sha256": "ccc9a675bb15fc7ceca6b3ac76b93435f6e6f5dc73bf86edb4ec45a295000336",
+      "zoom": 1.1,
+      "x": -1.1,
+      "y": 5.0
+    },
+    "kutaby-meat.webp": {
+      "source_sha256": "f53558df62589e669eab3e576d0726b4a0ef99a94533bb015fc92f8f9f633be3",
+      "zoom": 1.25,
+      "x": -2.51,
+      "y": -1.25
+    },
+    "kutaby-cheese.webp": {
+      "source_sha256": "83b1ae3e76071af4d1462454cd7484f2b79762f80036ce40cf3eb7f2238f75c8",
+      "zoom": 1.04,
+      "x": -1.56,
+      "y": -1.38
+    },
+    "kutaby-herbs.webp": {
+      "source_sha256": "d961d24c050d9e7f9d75e51edac5556adcef519e6f18ca8f94a9544f434cf942",
+      "zoom": 1.25,
+      "x": -2.51,
+      "y": -0.62
+    },
+    "samsa.webp": {
+      "source_sha256": "69df7782ae7da20a47482b7a66c7b368ffe8d0c872697bb99f50894cab4c6138",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "caesar.webp": {
+      "source_sha256": "b7d921d73041956ffd6f4487ff08b0b220f1b7ad17f54fdb5018d4547078df94",
+      "zoom": 1.21,
+      "x": -3.4,
+      "y": 3.63
+    },
+    "samarkand.webp": {
+      "source_sha256": "1bc89a48c3cfd2b371816914a68e4a7fdcd90c7f858f2d55eba9a91ff6edd324",
+      "zoom": 1.1,
+      "x": -5.0,
+      "y": 5.0
+    },
+    "inspiration.webp": {
+      "source_sha256": "d9948213c94d9969c1b66a08ce765ef2fbfc89583b5c40acdf9a419296ceb802",
+      "zoom": 1.06,
+      "x": -0.53,
+      "y": 3.0
+    },
+    "mazza.webp": {
+      "source_sha256": "9e4cfdfbaaa4cd5931a52867da3abbbafb80b409c56595e21f6afd093851c69d",
+      "zoom": 1.19,
+      "x": -0.67,
+      "y": -1.19
+    },
+    "druzhba.webp": {
+      "source_sha256": "4c049b13aa00259c817aa88efbad5423b1f3c614f357cb34b9e9abacefd22f31",
+      "zoom": 1.33,
+      "x": -2.66,
+      "y": 0.0
+    },
+    "olivier.webp": {
+      "source_sha256": "d1449d2f278825f3c928f066769f99eaf4e9d299d8faa05ed8fb267ee2980068",
+      "zoom": 1.06,
+      "x": -0.53,
+      "y": 3.0
+    },
+    "tashkent-salad.webp": {
+      "source_sha256": "8b8b878ccc23f7169eb9f0d9ed0407c4272fe072bb310030917929405f73201a",
+      "zoom": 1.38,
+      "x": -1.38,
+      "y": 1.53
+    },
+    "korean.webp": {
+      "source_sha256": "e3ad78680082b9bac09d7e926e2b76ba0a7b0d01d7aa7ff714ff5701ee5abb78",
+      "zoom": 1.4,
+      "x": -2.1,
+      "y": -0.78
+    },
+    "french.webp": {
+      "source_sha256": "d94ccc7614206ecfe315a8ca1e9e2692d1ede0240ea194cbdadfd45fbb5b2a2d",
+      "zoom": 1.43,
+      "x": -1.43,
+      "y": -1.59
+    },
+    "smak.webp": {
+      "source_sha256": "43dba95182a55a6a86a7762fd1a7fa15f5c6d38ee64f368b3bbde7153cf8ca07",
+      "zoom": 1.5,
+      "x": -2.25,
+      "y": 2.5
+    },
+    "greek.webp": {
+      "source_sha256": "668eaf526cfa8daac96df6bc1b8b1c683df6b0a1179f6604dfaec4c5cf9f6fee",
+      "zoom": 1.1,
+      "x": -3.85,
+      "y": 0.72
+    },
+    "georgian.webp": {
+      "source_sha256": "302eaf24a7e1490905fb45c1720b6c5b2dc7aad2ffe77be1cd5dab14d59387e4",
+      "zoom": 1.47,
+      "x": 0.0,
+      "y": -0.73
+    },
+    "achik.webp": {
+      "source_sha256": "d3c233b8157ffd8f3453fd573179cb98d6d199e90743ebf2b1c33b2eb2f818fe",
+      "zoom": 1.41,
+      "x": 1.58,
+      "y": 1.41
+    },
+    "fresh.webp": {
+      "source_sha256": "2a4949c7a348fb7c08485824d269ebf464849b1beff469df5af4822795978fa6",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "vitaminka.webp": {
+      "source_sha256": "a1f5e54c4db683f555cd840347af92bb132cb1be6f46978c045ed8f2719dcc46",
+      "zoom": 1.31,
+      "x": -1.97,
+      "y": -0.73
+    },
+    "chirokchi.webp": {
+      "source_sha256": "7740dabe14c0ceb33d0a97b4e67d3f8879846bc69965ba296f3b527e753ddebe",
+      "zoom": 1.29,
+      "x": -2.58,
+      "y": -4.3
+    },
+    "kuza-shurpa.webp": {
+      "source_sha256": "ea83d859de11ef4ae7cf0889dd261fa9dcaf745ecff80456eaa98e9cc267f7d2",
+      "zoom": 1.26,
+      "x": -1.42,
+      "y": 7.56
+    },
+    "shurpa.webp": {
+      "source_sha256": "f753ffb39dd2cd74849c5ec6e286f1bf358951646330adc4f343bce9752e295e",
+      "zoom": 1.75,
+      "x": -4.38,
+      "y": 0.0
+    },
+    "nahud.webp": {
+      "source_sha256": "7f901cba03d71e0473ef54de6c9e48e1c4fee35e487f42b49917f23c2ae33d03",
+      "zoom": 1.35,
+      "x": -4.05,
+      "y": -0.75
+    },
+    "lagman.webp": {
+      "source_sha256": "d7a553f06bc9fc2bcc245c991c29c2a5f91f3d0a41f4f3f8ec9c6a05dd0be4f1",
+      "zoom": 1.4,
+      "x": -0.7,
+      "y": 0.78
+    },
+    "lagman-uyghur.webp": {
+      "source_sha256": "3ab59696b625b245cc3da832dc6bcbc72fb21fcd21d6794c369f973018080331",
+      "zoom": 1.45,
+      "x": -0.72,
+      "y": 8.86
+    },
+    "borscht.webp": {
+      "source_sha256": "acf61525ce5f686aa908591e2b22a418f1aee6f2757822f7c9bf7fa879cfb0ae",
+      "zoom": 1.55,
+      "x": 0.78,
+      "y": 3.88
+    },
+    "mastava.webp": {
+      "source_sha256": "6699721ac082e1cac76e72e883f00cbf461dfe0d22c4cbdcac6962e24f2cf367",
+      "zoom": 1.61,
+      "x": -2.42,
+      "y": -1.79
+    },
+    "sorrel.webp": {
+      "source_sha256": "867ff2096b4914df3ce5c44ac5a9836fa6225499f8e9baadb1a81c7b2afdbb27",
+      "zoom": 1.46,
+      "x": -1.46,
+      "y": -4.06
+    },
+    "beef-broth.webp": {
+      "source_sha256": "095c3bb03291c05b055e5f53275e34455d6c5d6a22a4182bd4051d577789fe76",
+      "zoom": 1.53,
+      "x": -3.06,
+      "y": 4.25
+    },
+    "guzha.webp": {
+      "source_sha256": "146b1c8ccb0f39524745abe8fbb7d805e5adbb80c6cb0dd0fd8101b79fec218c",
+      "zoom": 1.45,
+      "x": -2.17,
+      "y": 4.03
+    },
+    "homemade-noodles.webp": {
+      "source_sha256": "d42f3892f1bbd223ba9950a163d6714c9b09d4652a8e4fab1120fa9c1dd74948",
+      "zoom": 1.51,
+      "x": -2.27,
+      "y": -5.87
+    },
+    "plov-samarkand.webp": {
+      "source_sha256": "001125b13f78619927b51ad6b9e8812def9df79ff4bb5c65c3b5cbe6d11604fb",
+      "zoom": 1.4,
+      "x": -2.1,
+      "y": 3.89
+    },
+    "jiz-teahouse-shared-needs-confirmation.webp": {
+      "source_sha256": "79acdf9e64b6f890c0ddbd3492c95fe3a20215fc661c5459f476c90c93e46366",
+      "zoom": 1.38,
+      "x": -1.38,
+      "y": 0.77
+    },
+    "medallion.webp": {
+      "source_sha256": "27471b22ccf89f9c14bd4024eb04d2e45639de6f4aabd8b95052995443ab0351",
+      "zoom": 1.26,
+      "x": -3.15,
+      "y": -6.3
+    },
+    "loin-vegetables.webp": {
+      "source_sha256": "48104de7cba2c61cced774c9888ea51c3f0afdc7b869bd787e4ccafc24972496",
+      "zoom": 1.15,
+      "x": -1.15,
+      "y": 0.64
+    },
+    "fried-lagman.webp": {
+      "source_sha256": "55c339f24c777f6f719371483b7d220b0e4197568437ea292c8d14b1596dc485",
+      "zoom": 1.09,
+      "x": 1.09,
+      "y": -0.73
+    },
+    "kurutob.webp": {
+      "source_sha256": "2fd7123137726d6cf7c1445df11bbd716b35cfcbea6845531665ad9de99f0ce8",
+      "zoom": 1.12,
+      "x": 1.12,
+      "y": -4.29
+    },
+    "beef-homestyle.webp": {
+      "source_sha256": "41357a0ba70d3d3e4c6148f19411cbf784a2c16d87bea36f7e524dc9bbe2a994",
+      "zoom": 1.26,
+      "x": 0.0,
+      "y": 10.35
+    },
+    "chicken-homestyle.webp": {
+      "source_sha256": "aa7bd02df373f86e988d002b09f6431a7e3746d6d8555038dedeede901a499fb",
+      "zoom": 1.62,
+      "x": -2.43,
+      "y": -1.8
+    },
+    "kazan-beef.webp": {
+      "source_sha256": "f5fedc5652558eccad5718ce3de439e14f2b1facb5a72ebf1a5930b40d461969",
+      "zoom": 1.06,
+      "x": 2.12,
+      "y": 0.57
+    },
+    "kazan-lamb.webp": {
+      "source_sha256": "2ff72a5f0a7e147fb6436e57da272efb9b6b5dbf5c222d11849363c8acdee684",
+      "zoom": 1.62,
+      "x": 0.91,
+      "y": 0.0
+    },
+    "jiz-lamb.webp": {
+      "source_sha256": "a20a3946f842998aece05900d9674402feac668282369f4a28d402d7d0ca61d1",
+      "zoom": 1.3,
+      "x": -2.19,
+      "y": 2.6
+    },
+    "jiz-beef.webp": {
+      "source_sha256": "d87dcfcb91893549b73cef9c86f28a41342110857e961302927f29124fbf7785",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "goulash.webp": {
+      "source_sha256": "66288a9d233f4b9087104281470a15e01060434d971e996d167ac26ae8bc6a21",
+      "zoom": 1.57,
+      "x": -1.57,
+      "y": 6.11
+    },
+    "beefsteak.webp": {
+      "source_sha256": "74f31b7e976e387ab64a5afffe9461fee0ce18f8336e862b1144fbb42e42fcbc",
+      "zoom": 1.22,
+      "x": -0.61,
+      "y": -0.68
+    },
+    "meatballs.webp": {
+      "source_sha256": "938f590626230aebafe1c91cecd9a48715a8d6d66d3c52c96c9e1ebe799e6d99",
+      "zoom": 1.4,
+      "x": -0.7,
+      "y": 3.11
+    },
+    "dolma.webp": {
+      "source_sha256": "e08a2d94c376aab9ea624930ea5b2ac1caa60168008764ccc61e5daf3301c1d9",
+      "zoom": 1.45,
+      "x": -3.62,
+      "y": 0.0
+    },
+    "beef-cutlets.webp": {
+      "source_sha256": "31aded2dc1fae866e09a00dc866b1ce7e4357773b2ba119f5c141cbf0834206b",
+      "zoom": 1.5,
+      "x": -2.25,
+      "y": -0.83
+    },
+    "lunch-set.webp": {
+      "source_sha256": "97a17b0b97fdf125166ef4958869c66129f14cde57e75998f523aef8a7e77af5",
+      "zoom": 1.16,
+      "x": -4.64,
+      "y": 0.64
+    },
+    "grill-assorted.webp": {
+      "source_sha256": "a6507dd576236e3ac0970d3d48e4d54050589af536e75f99ae0884a51b203b87",
+      "zoom": 1.22,
+      "x": 0,
+      "y": 0
+    },
+    "grill-roll.webp": {
+      "source_sha256": "e22d7cdbbb381013cc21a36588153219ae0a132dc6a963376819e15df2923008",
+      "zoom": 1.21,
+      "x": 0.6,
+      "y": -3.02
+    },
+    "grill-napoleon.webp": {
+      "source_sha256": "93136b6921a664605c1cf51ca34cf5d9a75050a97885bb8e535c4e74a06ef748",
+      "zoom": 1.38,
+      "x": -2.07,
+      "y": -1.53
+    },
+    "beef-flesh-needs-confirmation.webp": {
+      "source_sha256": "498924b9fa6288caea704ce8f91bceb64e8c1496e61cc853aa31b6ff3a1710a0",
+      "zoom": 1.07,
+      "x": 0.6,
+      "y": -0.54
+    },
+    "lula.webp": {
+      "source_sha256": "2326a4aadbaf06807ead239f37fe2e27cc895763bba07c52860bba6c8089554d",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "lamb-flesh.webp": {
+      "source_sha256": "e3acde1c29121f0e0872a505b83f50341a7725e34407c048df8b01365f66b460",
+      "zoom": 1.34,
+      "x": -5.27,
+      "y": -2.68
+    },
+    "lamb-loin.webp": {
+      "source_sha256": "e5786f17ec52a8c090102148f59b17975fb7a5fa060f3dfb4bd52e1ddecf9712",
+      "zoom": 1.43,
+      "x": 0.0,
+      "y": -4.77
+    },
+    "lamb-seeds.webp": {
+      "source_sha256": "94df1a281c8a241beacaef6369d845eb533963b83980b10df4da6bd4da245878",
+      "zoom": 1.31,
+      "x": -0.66,
+      "y": -0.73
+    },
+    "kurdyuk.webp": {
+      "source_sha256": "d68bbbad2ec89d31b3a0c7244858ae87864e559d93bf2b6357bf7f12268edce1",
+      "zoom": 1.48,
+      "x": -2.96,
+      "y": 1.64
+    },
+    "chicken-leg.webp": {
+      "source_sha256": "1b52d836de62efc0628d7f9ecdd6043d3b8c73d1f85470b98c945ab69572ea26",
+      "zoom": 1.0,
+      "x": -0.0,
+      "y": -0.0
+    },
+    "chicken-wings.webp": {
+      "source_sha256": "22be215cdf84aea7299e0ded40e7bc50db47dd3fecfc68b67dcca5d0b8257cb2",
+      "zoom": 1.38,
+      "x": -2.76,
+      "y": 0.0
+    },
+    "chicken-breast.webp": {
+      "source_sha256": "ab9b39c0c11b99c2c0b9d25ab6dc925ca3b9310406cacfa6bb723dc73eab6bd5",
+      "zoom": 1.43,
+      "x": -5.0,
+      "y": -3.18
+    },
+    "grill-vegetables.webp": {
+      "source_sha256": "d1d200078d47052f0f73e149e75ca3f7f6e91f8e43a612d31e5f8e531644a7b3",
+      "zoom": 1.56,
+      "x": -0.78,
+      "y": 1.73
+    },
+    "grill-tomatoes.webp": {
+      "source_sha256": "bb7026301ee7b4738f345f7fabb666b23aab25d2b5cfa726f630164c7d891f33",
+      "zoom": 1.4,
+      "x": -2.1,
+      "y": -0.78
+    },
+    "grill-mushrooms.webp": {
+      "source_sha256": "14d7c0eed832e64f1618a192d9a3dce84809e2a022a783f127b876036298fe1f",
+      "zoom": 1.45,
+      "x": -2.17,
+      "y": -2.42
+    },
+    "dorado.webp": {
+      "source_sha256": "dc1f191a15cf36486c901a170d1626211dc4a9ee8d1e4759a8a5624f1efd5b45",
+      "zoom": 1.24,
+      "x": -3.1,
+      "y": 0.69
+    },
+    "salmon.webp": {
+      "source_sha256": "c4021558ce196292e334fc60d1955c40bbfdcd628ad8584a40c468e9659d2811",
+      "zoom": 1.34,
+      "x": 0.0,
+      "y": -0.74
+    },
+    "rustic-potatoes.webp": {
+      "source_sha256": "4e126407f50c1dc31c4cc8d5c520fab53c97db5a426f3fe41d0f286ba0e519bd",
+      "zoom": 1.5,
+      "x": -0.75,
+      "y": 2.5
+    },
+    "fries.webp": {
+      "source_sha256": "cc7ef1e9d81e9f3317a95c61214749421ed367e8651ffe170424367686ab3628",
+      "zoom": 1.22,
+      "x": 0.0,
+      "y": 0.0
+    },
+    "mashed.webp": {
+      "source_sha256": "00737bc1027dd836d3172937925e01fe9d405d089eebe20a0c69a7de13004539",
+      "zoom": 1.5,
+      "x": -3.75,
+      "y": 0.0
+    },
+    "pasta.webp": {
+      "source_sha256": "1d82090a75c07fa3004ae96b2bc861d6ea767e90b26f0482147db300a60c0d1b",
+      "zoom": 1.38,
+      "x": -1.38,
+      "y": -1.53
+    },
+    "rice.webp": {
+      "source_sha256": "5f98bba74d647d06d2c0f7c57991f53e85fd034b62bb81424c3ac11aa9755542",
+      "zoom": 1.36,
+      "x": -2.04,
+      "y": -5.29
+    },
+    "buckwheat.webp": {
+      "source_sha256": "8a6e1a7deefe57f5c2aec78de24563c7ed24c4ccd4c2fbda6cc48ba72844cdbb",
+      "zoom": 1.4,
+      "x": -3.5,
+      "y": -0.78
+    },
+    "flatbread.webp": {
+      "source_sha256": "22d32e2d422b7b3d7f7a414809ac11ec9c0ff3b58ac93bc4465d668bca0a0cb9",
+      "zoom": 1.13,
+      "x": -2.26,
+      "y": 0.63
+    },
+    "fatir.webp": {
+      "source_sha256": "e588f4adbe6fa70c008c407e9186016b21a97a43ea061bde1cf7e0b05e9bd3f7",
+      "zoom": 1.48,
+      "x": 16.28,
+      "y": -15.54
+    },
+    "garlic-sauce.webp": {
+      "source_sha256": "d7718f928287bca4438ecc3daa9f7030a32a31b63de417286c2408ea72e7d974",
+      "zoom": 1.5,
+      "x": 9.75,
+      "y": -12.75
+    },
+    "sour-cream.webp": {
+      "source_sha256": "c531c47164110c4e9bee43a569d3fd176c60bceac8cd2bb112d81b3d7df3b2a0",
+      "zoom": 1.56,
+      "x": 0.78,
+      "y": -14.82
+    },
+    "ketchup.webp": {
+      "source_sha256": "769539f23523a4cd3713b7a4cb84ecdc256c1264ed33250bd2c5d51f959169e4",
+      "zoom": 2.0,
+      "x": -3.0,
+      "y": -21.0
+    },
+    "adjika.webp": {
+      "source_sha256": "02ef45a6d5a91502781d5339c8922c263cfe871a8de7625a77ef1e063538beae",
+      "zoom": 1.62,
+      "x": -5.67,
+      "y": 15.39
+    },
+    "sunshine.webp": {
+      "source_sha256": "a37e634c71deac1c720a523e96e98c15480b7b0210d3c353994b78f841810fef",
+      "zoom": 1.43,
+      "x": -2.86,
+      "y": -3.97
+    },
+    "octopus.webp": {
+      "source_sha256": "9083bbb42467a9116b25b1a76d951ad56fa7c6690439c9390582a75882a88c78",
+      "zoom": 1.45,
+      "x": -2.17,
+      "y": -1.61
+    },
+    "potato-hill.webp": {
+      "source_sha256": "c4882dc5cb17d47d55a6617c4b1a8396c3b7c37299c892f3b4996735664c3560",
+      "zoom": 1.4,
+      "x": -2.1,
+      "y": 4.67
+    },
+    "compote.webp": {
+      "source_sha256": "e254487345cc6249eb1c1f0a87904cdcff6dacabab3aec50dd1d1afdae4ed35a",
+      "zoom": 1.15,
+      "x": 1.15,
+      "y": 1.92
+    },
+    "juice.webp": {
+      "source_sha256": "261725adc5cf3b2bf76f6c4a5cd912528edcab3a4ed66fb34a5961b8f3727652",
+      "zoom": 1.03,
+      "x": -1.5,
+      "y": -0.57
+    },
+    "adrenaline.webp": {
+      "source_sha256": "8b1a198930616593d93777c241a36c46b1b4f5dc8e182a8e2451d1795ca8f28c",
+      "zoom": 1.26,
+      "x": -5.04,
+      "y": -2.1
+    },
+    "natakhtari.webp": {
+      "source_sha256": "4fedc4a61076043ac9dd4ae41fd1e27e73f19a46eec4e9c329e26a16e47c71ab",
+      "zoom": 1.22,
+      "x": 0,
+      "y": 0
+    },
+    "borjomi.webp": {
+      "source_sha256": "a7b72042ae2928820d5cd7231158f36c6e4d79f81aeba30cf1f51a1ab20ba3ea",
+      "zoom": 1.24,
+      "x": 0.0,
+      "y": -1.38
+    },
+    "bonaqua.webp": {
+      "source_sha256": "326ecb714c4e7c9a84033ef83cfdd1be222dfa74e22ea4ca48a11e59c1f1b496",
+      "zoom": 1.2,
+      "x": -1.2,
+      "y": -2.67
+    },
+    "cola-pepsi.webp": {
+      "source_sha256": "c43831cbe89c0617bcde20835f2e383f6aef8ebf0c02dae142389b7785cc6524",
+      "zoom": 1.15,
+      "x": 0.0,
+      "y": -1.92
+    },
+    "rc-cola.webp": {
+      "source_sha256": "94072c9c51ae2130a738ee13b4d652589feca91e0dc361ddad31f581ccbe319d",
+      "zoom": 1.12,
+      "x": -1.12,
+      "y": 0.62
+    },
+    "snickers.webp": {
+      "source_sha256": "ac37030c1c655d109a1eca4d8653f08777353816c970299d0243b13b010e43e1",
+      "zoom": 1.4,
+      "x": -0.7,
+      "y": 0.78
+    },
+    "honeycake.webp": {
+      "source_sha256": "6dffdcd0d2a7d518b4917d1cd14aebe4931b3c4a01aa9498449f940115647346",
+      "zoom": 1.38,
+      "x": 0.0,
+      "y": -0.77
+    },
+    "fairytale.webp": {
+      "source_sha256": "d06b232226e0a5ff1194c328b3d9c80b803c2536a3e6a427de8ef3d75a468453",
+      "zoom": 1.26,
+      "x": -1.26,
+      "y": -1.4
+    },
+    "fruit-platter.webp": {
+      "source_sha256": "d35d6bc9bfed202b4c5e250f54f4d69c5dbaf1e658d0160584cbeefc64ffd56f",
+      "zoom": 1.34,
+      "x": 0.0,
+      "y": 4.47
+    }
+  }
+}
