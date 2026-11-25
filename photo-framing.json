@@ -654,6 +654,24 @@
       "zoom": 1.34,
       "x": 0.0,
       "y": 4.47
+    },
+    "katyk-2026-11-25.jpg": {
+      "source_sha256": "6dc02546bb2bbc6253e6bd90f3157d7a89aaf1d0f32d1da0b4f04083fab2e055",
+      "zoom": 1.35,
+      "x": -2.5,
+      "y": -3.0
+    },
+    "chakka-2026-11-25.jpg": {
+      "source_sha256": "827e97b4de893d052ca6450c8d2aba24e8eb1df94d39724ef47b4026942d3050",
+      "zoom": 1.22,
+      "x": -5.5,
+      "y": 0.0
+    },
+    "lemon.jpg": {
+      "source_sha256": "51fc9e265bc6a323f4d7e3769d7185a795911c8a45bcbfdb63f65500b3832f59",
+      "zoom": 1.2,
+      "x": 0.0,
+      "y": 5.0
     }
   }
 }
