@@ -672,6 +672,18 @@
       "zoom": 1.2,
       "x": 0.0,
       "y": 5.0
+    },
+    "tea-assortment-2026-11-25.jpg": {
+      "source_sha256": "533b956301033931de180c252bb884c01300d0d4425a26f15bbed31a7fbe9ac1",
+      "zoom": 1.16,
+      "x": 0.0,
+      "y": 4.0
+    },
+    "chalop-2026-11-25.jpg": {
+      "source_sha256": "9f1a52e65fb6b6f1561aae9b28de02ddc1cc60e192f05c03c0e759850fcd912e",
+      "zoom": 1.1,
+      "x": 0.0,
+      "y": 4.5
     }
   }
 }
