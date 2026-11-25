@@ -40,3 +40,8 @@ body{background:#21160e url('./background.webp') center top/1400px auto repeat-y
  .search input{font-size:1rem}.category-row{padding-inline:14px}
 }
 @media(max-width:350px){.brand-lockup.has-logo{max-width:115px}.brand-logo{display:block;height:62px}.header-contacts .contact-action{font-size:.8125rem;padding-inline:7px;gap:5px}.contact-action small{font-size:.6875rem}.sheet-contact-actions{flex-direction:column;align-items:stretch}}
+
+/* Bonuses belong to individual dishes, including their detail view. */
+.dish-bonus{margin:4px 0 14px;padding:11px 13px;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:#e6bd820d}
+.dish-bonus strong{display:block;color:var(--gold);font-size:.875rem;font-weight:600;line-height:1.4}
+.dish-bonus p{margin:6px 0 0;color:var(--text);font-size:.875rem;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}

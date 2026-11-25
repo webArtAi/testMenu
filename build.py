@@ -49,6 +49,9 @@ def read_menu(workbook:Path,root:Path):
      if cell.data_type=='f':raise MenuError(f'Лист «{sh.title}», ячейка {cell.coordinate}: формулы не поддерживаются; вставьте готовое значение.')
   ws=wb['Меню']
   if [text(c.value) for c in ws[1]][:8]!=HEADERS:raise MenuError('Не меняйте заголовки колонок листа «Меню».')
+  bonus_header=text(ws.cell(1,9).value)
+  if bonus_header and bonus_header!='Бонус к блюду':raise MenuError('Колонка I листа «Меню» должна называться «Бонус к блюду».')
+  has_bonus=bonus_header=='Бонус к блюду'
   categories=[];seen=set()
   for row in wb['Разделы'].iter_rows(min_row=2,values_only=True):
    name=text(row[0])
@@ -56,12 +59,13 @@ def read_menu(workbook:Path,root:Path):
    if name.casefold() in seen:raise MenuError(f'Повтор раздела «{name}» на листе «Разделы».')
    seen.add(name.casefold());categories.append({'name':name,'id':CATEGORY_IDS.get(name,'c-'+hashlib.sha256(name.encode()).hexdigest()[:12])})
   allowed={c['name'] for c in categories};dishes=[];ids=set();current=None
-  for num,row in enumerate(ws.iter_rows(min_row=2,max_col=8,values_only=True),2):
+  for num,row in enumerate(ws.iter_rows(min_row=2,max_col=9 if has_bonus else 8,values_only=True),2):
    if not any(text(v) for v in row):continue
-   cat,name,portion,cost,description,photo,visible,code=row
+   cat,name,portion,cost,description,photo,visible,code=row[:8]
+   bonus=row[8] if has_bonus else ''
    if not text(name):
     if current is None:raise MenuError(f'Меню, строка {num}: у порции нет блюда. Укажите название в первой строке блюда.')
-    if any(text(v) for v in [cat,description,photo,visible,code]):raise MenuError(f'Меню, строка {num}: дополнительная порция содержит лишние поля. Заполните только колонки C и D или укажите название нового блюда.')
+    if any(text(v) for v in [cat,description,photo,visible,code,bonus]):raise MenuError(f'Меню, строка {num}: дополнительная порция содержит лишние поля. Заполните только колонки C и D или укажите название нового блюда.')
     current['portions'].append({'label':text(portion),'price':price(cost,num)});continue
    if text(cat) not in allowed:raise MenuError(f'Меню, строка {num}: раздел «{text(cat)}» не найден. Выберите значение из списка разделов.')
    ident=text(code) or 'dish-'+hashlib.sha256((text(cat)+'|'+text(name)).encode()).hexdigest()[:16]
@@ -69,7 +73,7 @@ def read_menu(workbook:Path,root:Path):
    if ident in ids:raise MenuError(f'Меню, строка {num}: повторяется код «{ident}». У нового скопированного блюда очистите код в колонке H.')
    ids.add(ident)
    if text(photo):safe_file(root/'photos',text(photo),f'Меню, строка {num}',{'.jpg','.jpeg','.png','.webp'})
-   current={'id':ident,'category':text(cat),'name':text(name),'description':text(description),'photo':text(photo),'visible':yes_no(visible,f'Меню, строка {num}'),'portions':[{'label':text(portion),'price':price(cost,num)}]};dishes.append(current)
+   current={'id':ident,'category':text(cat),'name':text(name),'description':text(description),'bonus':text(bonus),'photo':text(photo),'visible':yes_no(visible,f'Меню, строка {num}'),'portions':[{'label':text(portion),'price':price(cost,num)}]};dishes.append(current)
   if not any(d['visible'] for d in dishes):raise MenuError('В меню нет видимых блюд. Добавьте хотя бы одно и выберите «Да» в колонке G.')
   settings={}
   for row in wb['Настройки'].iter_rows(min_row=2,max_col=2,values_only=True):
@@ -173,11 +177,10 @@ def render(model,images,root,asset_root=None,framing=None):
    long=len(d['portions'])>4
    search=' '.join([d['name'],d['description'],c['name'],*[p['label'] for p in d['portions']]]).lower().replace('ё','е')
    description=f'<p class="description">{esc(d["description"])}</p>' if d['description'] else ''
+   bonus=f'<div class="dish-bonus"><strong>Бонус к блюду</strong><p>{esc(d.get("bonus",""))}</p></div>' if d.get('bonus') else ''
    variants_note=f'<p class="variants-note">Виды, объёмы и цены внутри · {len(d["portions"])} вариантов</p>' if long else ''
-   cards.append(f'<article id="dish-{d["id"]}" data-search="{esc(search)}"><a class="dish-card" href="#dish-{d["id"]}" data-open="{d["id"]}" aria-haspopup="dialog">{visual}<div class="card-body"><h3>{esc(d["name"])}</h3>{description}<div class="portions {"is-long" if long else ""}">{portions}</div>{variants_note}<span class="more">Подробнее</span></div></a></article>')
-  bonus=''
-  if c['id']=='mains' and s.get('Бонус к блюду'):bonus=f'<aside class="bonus"><strong>Бонус к блюду</strong><span>{esc(s["Бонус к блюду"])}</span><small>{esc(s.get("Условия бонуса",""))}</small></aside>'
-  sections.append(f'<section class="menu-section" id="category-{c["id"]}" data-menu-section><div class="section-head"><h2>{esc(c["name"])}</h2><span>{len(dishes)} поз.</span></div>{bonus}<div class="grid">{"".join(cards)}</div></section>')
+   cards.append(f'<article id="dish-{d["id"]}" data-search="{esc(search)}"><a class="dish-card" href="#dish-{d["id"]}" data-open="{d["id"]}" aria-haspopup="dialog">{visual}<div class="card-body"><h3>{esc(d["name"])}</h3>{description}{bonus}<div class="portions {"is-long" if long else ""}">{portions}</div>{variants_note}<span class="more">Подробнее</span></div></a></article>')
+  sections.append(f'<section class="menu-section" id="category-{c["id"]}" data-menu-section><div class="section-head"><h2>{esc(c["name"])}</h2><span>{len(dishes)} поз.</span></div><div class="grid">{"".join(cards)}</div></section>')
  links=''.join(f'<a href="{esc(l["url"])}" target="_blank" rel="noopener noreferrer">{esc(l["label"])}</a>' for l in model['links'])
  phone=s.get('Телефон','');phone_html=f'<a class="contact-phone" href="tel:{esc(re.sub(r"[^+0-9]","",phone))}">{esc(phone)}</a>' if phone else ''
  logo_hash=hashlib.sha256((root/'assets'/s['Логотип']).read_bytes()).hexdigest()[:12] if s.get('Логотип') else ''
