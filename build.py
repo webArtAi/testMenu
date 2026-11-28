@@ -10,6 +10,18 @@ from PIL import Image, ImageOps
 ROOT=Path(__file__).resolve().parent
 HEADERS=['Раздел','Название блюда','Порция / вариант','Цена, ₽','Описание / состав','Фото','Показывать','Код']
 CATEGORY_IDS=dict(zip(['Завтраки','Холодные закуски','Горячие закуски','Салаты','Первые блюда','Вторые блюда','Шашлыки','Рыба','Гарниры','Хлеб','Соусы','Детское меню','Напитки','Десерты'],['breakfast','cold','hot','salads','soups','mains','grill','fish','sides','bread','sauces','kids','drinks','desserts']))
+BACKGROUND_COLORS={
+ 'Тёмно-коричневый':'#21160e','Чёрный':'#000000','Тёмно-зелёный':'#173b2b',
+ 'Тёмно-синий':'#172b45','Бордовый':'#4a1f2c','Серый':'#808080',
+ 'Бежевый':'#e9dfcd','Белый':'#ffffff',
+}
+BACKGROUND_DIRECTIONS={'Сверху вниз':'to bottom','Слева направо':'to right','По диагонали':'135deg'}
+# Keep the already published default bitmaps byte-for-byte. A replacement of
+# either file automatically leaves this compatibility path and is prepared anew.
+ORIGINAL_BACKGROUND_HASHES=(
+ '5fe96bfd4837f410b917dfde3d359f2b8b4e19f649020f64c514444e9cb81c04',
+ '0cf0587aa84268879602e9c65895378ddb895ddf87f5aaf21601aa58ee8a2de9',
+)
 class MenuError(ValueError):pass
 
 def text(v):return '' if v is None else str(v).strip()
@@ -35,6 +47,77 @@ def safe_file(folder:Path,name:str,where:str,extensions=None):
  except OSError:raise MenuError(f'{where}: не найден файл {name}. Загрузите его в папку {folder.name}.')
  if extensions and file.suffix.casefold() not in extensions:raise MenuError(f'{where}: поддерживаются JPG, PNG и WebP.')
  return file
+
+def background_color(value,where):
+    label=text(value)
+    normalized=label.casefold().replace('ё','е')
+    for name,color in BACKGROUND_COLORS.items():
+        if name.casefold().replace('ё','е')==normalized:return color
+    if re.fullmatch(r'#[0-9a-fA-F]{6}',label):return label.lower()
+    if re.fullmatch(r'#[0-9a-fA-F]{3}',label):return '#'+''.join(c*2 for c in label[1:]).lower()
+    raise MenuError(f'Настройки, «{where}»: выберите цвет из списка или введите код вида #21160E.')
+
+def read_background(settings,root):
+    mode=text(settings.get('Тип фона','')).casefold() or 'картинка'
+    if mode=='картинка':
+        name=text(settings.get('Фон',''))
+        if not name and text(settings.get('Тип фона','')):
+            raise MenuError('Настройки: для типа «Картинка» укажите имя файла в строке «Фон».')
+        if name:safe_file(root/'assets',name,'Настройки: Фон',{'.webp','.jpg','.jpeg','.png'})
+        return {'kind':'image','file':name}
+    if mode=='цвет':
+        return {'kind':'color','color':background_color(settings.get('Цвет фона','Тёмно-коричневый'),'Цвет фона')}
+    if mode=='градиент':
+        first=background_color(settings.get('Градиент: цвет 1','Тёмно-коричневый'),'Градиент: цвет 1')
+        second=background_color(settings.get('Градиент: цвет 2','Тёмно-зелёный'),'Градиент: цвет 2')
+        label=text(settings.get('Градиент: направление','Сверху вниз'))
+        direction=next((v for k,v in BACKGROUND_DIRECTIONS.items() if k.casefold()==label.casefold()),None)
+        if not direction:raise MenuError('Настройки: выберите направление градиента из списка.')
+        return {'kind':'gradient','first':first,'second':second,'direction':direction}
+    raise MenuError('Настройки: «Тип фона» должен быть «Картинка», «Цвет» или «Градиент».')
+
+def prepare_background(config,root,stage,logo=''):
+    """Return a final CSS override, preparing one source image for both screens."""
+    if config['kind']=='color':
+        rule='background:'+config['color']
+        return '\nbody{'+rule+'}@media(max-width:640px){body{'+rule+'}}\n'
+    if config['kind']=='gradient':
+        rule='background:linear-gradient('+config['direction']+','+config['first']+','+config['second']+');background-attachment:fixed'
+        return '\nbody{'+rule+'}@media(max-width:640px){body{'+rule+'}}\n'
+    name=config['file'];desktop=mobile=''
+    if name:
+        source=safe_file(root/'assets',name,'Настройки: Фон',{'.webp','.jpg','.jpeg','.png'})
+        if source.stat().st_size>50*1024*1024:raise MenuError('Фон больше 50 МБ: выберите уменьшенную копию.')
+        digest=hashlib.sha256(source.read_bytes()).hexdigest()
+        old_mobile=root/'assets/background-mobile.webp'
+        original=(name=='background.webp' and digest==ORIGINAL_BACKGROUND_HASHES[0]
+                  and old_mobile.is_file() and old_mobile.resolve().parent==(root/'assets').resolve()
+                  and hashlib.sha256(old_mobile.read_bytes()).hexdigest()==ORIGINAL_BACKGROUND_HASHES[1])
+        if original:
+            desktop=name;mobile='background-mobile.webp'
+        else:
+            try:
+                with Image.open(source) as raw:
+                    if raw.width*raw.height>80000000:raise MenuError('Фон больше 80 мегапикселей: выберите уменьшенную копию.')
+                    image=ImageOps.exif_transpose(raw)
+                    image=image.convert('RGBA' if 'A' in image.getbands() or 'transparency' in image.info else 'RGB')
+                    names=[]
+                    for width in [1800,900]:
+                        version=image.copy()
+                        if version.width>width:
+                            version=image.resize((width,max(1,round(image.height*width/image.width))),Image.Resampling.LANCZOS)
+                        filename=f'background-{digest[:18]}-{width}.webp'
+                        version.save(stage/'assets'/filename,'WEBP',quality=85,method=4)
+                        names.append(filename)
+                    desktop,mobile=names
+                # Keep the original in the repository; publish the prepared sizes.
+                if name!=logo:
+                    (stage/'assets'/name).unlink(missing_ok=True)
+            except MenuError:raise
+            except Exception as e:raise MenuError('Не удалось обработать фон. Выберите обычный JPG, PNG или WebP.') from e
+    background="url('./"+quote(desktop,safe='')+"')" if desktop else 'none'
+    mobile_background="url('./"+quote(mobile,safe='')+"')" if mobile else 'none'
+    return '\nbody{background-image:'+background+'}@media(max-width:640px){body{background-image:'+mobile_background+'}}\n'
 
 def read_menu(workbook:Path,root:Path):
  try:wb=load_workbook(workbook,data_only=False)
@@ -82,8 +165,8 @@ def read_menu(workbook:Path,root:Path):
    settings[text(row[0])]=text(row[1])
   if not settings.get('Название'):raise MenuError('На листе «Настройки» укажите название кафе.')
   settings['draft']=yes_no(settings.get('Предварительная версия'),'Настройки: Предварительная версия')
-  for key in ['Фон','Логотип']:
-   if settings.get(key):safe_file(root/'assets',settings[key],f'Настройки: {key}',{'.webp','.jpg','.jpeg','.png'})
+  if settings.get('Логотип'):safe_file(root/'assets',settings['Логотип'],'Настройки: Логотип',{'.webp','.jpg','.jpeg','.png'})
+  settings['_background']=read_background(settings,root)
   site_url=settings.get('Сайт URL','').rstrip('/')
   if site_url:
    u=urlparse(site_url)
@@ -205,10 +288,8 @@ def build(root=ROOT,output=None,workbook=None):
  model=read_menu(workbook,root);framing=read_framing(root);dest.parent.mkdir(parents=True,exist_ok=True);stage=Path(tempfile.mkdtemp(prefix='.site-build-',dir=dest.parent));old=None
  try:
   images=build_images(model,root,stage);shutil.copytree(root/'assets',stage/'assets')
-  bg=model['settings'].get('Фон','');mobile='background-mobile.webp' if bg=='background.webp' else bg
-  background="url('./"+quote(bg,safe='')+"')" if bg else 'none'
-  mobile_background="url('./"+quote(mobile,safe='')+"')" if mobile else 'none'
-  with (stage/'assets/site.css').open('a') as css:css.write('\nbody{background-image:'+background+'}@media(max-width:640px){body{background-image:'+mobile_background+'}}\n')
+  background_css=prepare_background(model['settings']['_background'],root,stage,model['settings'].get('Логотип',''))
+  with (stage/'assets/site.css').open('a') as css:css.write(background_css)
   (stage/'index.html').write_text(render(model,images,root,stage/'assets',framing),encoding='utf-8');(stage/'.nojekyll').write_text('')
   settings=model['settings'];url=settings['site_url']
   (stage/'robots.txt').write_text('User-agent: *\n'+('Disallow: /\n' if settings['draft'] else 'Allow: /\n')+(f'Sitemap: {url}/sitemap.xml\n' if url and not settings['draft'] else ''))
